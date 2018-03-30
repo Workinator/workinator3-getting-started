@@ -9,7 +9,8 @@ projects = [
     "workinator3-coordinator",
     "workinator3-coordinator-mongodb",
     "workinator3-demo-inprocess",
-    "workinator3-demo-rabbitmq"
+    "workinator3-demo-rabbitmq",
+    "workinator3-httpapi"
 ]
 
 command = sys.argv[1]
@@ -30,12 +31,15 @@ elif command == "commit":
     commands.append("git push")
 elif command == "status":
     commands.append("git status")
+elif command == "installw":
+    commands.append("mvnw.cmd clean install -DskipTests")
     
 for project in projects:
     cwd = os.path.join(startFolder, project)
     print(cwd)
     for c in commands:
-        call(c, cwd=cwd)
+        print("\t" + c)
+        call(c, cwd=cwd, shell=True)
 
 
 
